@@ -1,11 +1,15 @@
 import libs from './libs.js';
-const { multer, mongoose } = libs;
-import { app } from './config.js';
+const { mongoose } = libs;
 
-const PORT = process.env.PORT || 6001;
-mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => {
-    app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
-}).catch((error) => console.log(`Connection failed: ${error}`));
+export const connectToDatabase = async () => {
+    try {
+        await mongoose.connect(process.env.MONGO_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log('Connected to database successfully');
+    } catch (error) {
+        console.log(`Connection failed: ${error}`);
+        throw error;
+    }
+};

@@ -2,10 +2,10 @@
   "name": "real_time_chat-nodejs",
   "version": "1.0.0",
   "description": "Real Time Chat using NodeJS - Challenge",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/gollumeo/real_time_chat-nodejs#readme",
   "dependencies": {
+    "mongodb": "^5.4.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",

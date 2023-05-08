@@ -8,7 +8,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import socket from 'socket.io';
+import { Server } from 'socket.io';
 
 export default {
     express,
@@ -21,5 +21,5 @@ export default {
     morgan,
     path,
     fileURLToPath,
-    socket,
+    Server,
 }

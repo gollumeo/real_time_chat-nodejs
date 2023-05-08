@@ -12,6 +12,18 @@ app.use(morgan('common'));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
-app.use("/assets", express.static(path.join(__dirname, 'public/assets')));
+app.use((req, res, next) => {
+    res.setHeader('Content-Security-Policy', "script-src 'self' https://cdn.socket.io/4.1.2/socket.io.min.js");
+    next();
+});
+app.use((req, res, next) => {
+    res.setHeader('Content-Security-Policy', "script-src 'self' https://cdn.socket.io/4.1.2/socket.io.min.js 'unsafe-inline'");
+    next();
+});
 
+app.use("/assets", express.static(path.join(__dirname, 'public/assets')));
+app.use('/client', express.static(path.join(__dirname, '../../client')));
+app.get('/', (req, res) => {
+    res.redirect('/client/index.html');
+});
 export { app };

@@ -1,5 +1,3 @@
-// server.js
-
 import { app } from './setup/config.js';
 import { connectToDatabase } from './setup/mongoose.js';
 import libs from './setup/libs.js';
@@ -11,12 +9,14 @@ const { Server } = libs;
 connectToDatabase()
     .then(() => {
         // Start HTTP server
-        const server = app.listen(PORT, () => console.log(`Server running at: http://localhost:${PORT}`));
+        const http = require('http').Server(app);
+        const io = require('socket.io')(http);
+
+        http.listen(PORT, () => {
+            console.log(`Server running at: http://localhost:${PORT}`);
+        });
 
         // Attach Socket.IO to the HTTP server
-        const io = new Server(server);
-
-        // Handle Socket.IO events
         io.on('connection', (socket) => {
             console.log(`New client connected: ${socket.id}`);
 
